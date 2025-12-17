@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    setTimeout(() => {
+  document.body.classList.add('loaded');
+}, 2500);
+
   /* ==========================
      HOME STAGGER FADE
   ========================== */
@@ -86,7 +90,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  setInterval(drawMatrix, 50);
+let matrixInterval = 50;
+let matrixTimer = setInterval(drawMatrix, matrixInterval);
+
+window.addEventListener('scroll', () => {
+  const scrollRatio = window.scrollY / document.body.scrollHeight;
+  const newSpeed = Math.max(20, 80 - scrollRatio * 60);
+
+  if (newSpeed !== matrixInterval) {
+    matrixInterval = newSpeed;
+    clearInterval(matrixTimer);
+    matrixTimer = setInterval(drawMatrix, matrixInterval);
+  }
+});
+
 
   /* ==========================
      MATRIX PER SECTION
@@ -109,3 +126,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('section').forEach(sec => matrixObserver.observe(sec));
 });
+
+document.addEventListener('mousemove', e => {
+  document.querySelectorAll('.project-card').forEach(card => {
+    const rect = card.getBoundingClientRect();
+    if (
+      e.clientX > rect.left &&
+      e.clientX < rect.right &&
+      e.clientY > rect.top &&
+      e.clientY < rect.bottom
+    ) {
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+    } else {
+      card.style.transform = '';
+    }
+  });
+});
+
+if (window.innerWidth < 768) {
+  clearInterval(drawMatrix);
+}

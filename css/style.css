@@ -288,3 +288,90 @@ footer { text-align: center; padding: 40px; }
   background: rgba(15, 23, 42, 0.96);
   backdrop-filter: blur(2px);
 }
+
+/* ==========================
+   TERMINAL BOOT SCREEN
+========================== */
+#bootScreen {
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal {
+  color: #22c55e;
+  font-family: monospace;
+  font-size: 1.1rem;
+}
+
+.blink {
+  animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+body.loaded #bootScreen {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+/* ==========================
+   GLITCH EFFECT
+========================== */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.glitch:hover::before {
+  color: #22c55e;
+  transform: translate(2px, -2px);
+  opacity: 1;
+}
+
+.glitch:hover::after {
+  color: #38bdf8;
+  transform: translate(-2px, 2px);
+  opacity: 1;
+}
+
+/* ==========================
+   3D PROJECT CARDS
+========================== */
+.project-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease;
+}
+
+/* ==========================
+   SCANLINE OVERLAY
+========================== */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  z-index: 2;
+}
