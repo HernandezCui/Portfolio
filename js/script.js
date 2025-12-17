@@ -263,3 +263,46 @@ logo?.addEventListener('mouseleave', () => {
   // initial load
   loadLocal().catch(() => {});
 });
+
+// ==========================
+//      CURSOR TRAIL
+// ==========================
+const trailWrap = document.getElementById('cursorTrail');
+if (trailWrap) {
+  const dots = [];
+  const DOTS = 18;
+
+  for (let i = 0; i < DOTS; i++) {
+    const d = document.createElement('div');
+    d.className = 'trail-dot';
+    trailWrap.appendChild(d);
+    dots.push({ el: d, x: -9999, y: -9999 });
+  }
+
+  let tx = -9999, ty = -9999;
+
+  window.addEventListener('mousemove', (e) => {
+    tx = e.clientX;
+    ty = e.clientY;
+  }, { passive: true });
+
+  function animateTrail() {
+    let x = tx, y = ty;
+
+    dots.forEach((dot, i) => {
+      const speed = Math.max(0.08, 0.28 - i * 0.01);
+      dot.x += (x - dot.x) * speed;
+      dot.y += (y - dot.y) * speed;
+
+      dot.el.style.left = dot.x + 'px';
+      dot.el.style.top = dot.y + 'px';
+      dot.el.style.opacity = String(1 - i / DOTS);
+
+      x = dot.x;
+      y = dot.y;
+    });
+
+    requestAnimationFrame(animateTrail);
+  }
+  animateTrail();
+}
