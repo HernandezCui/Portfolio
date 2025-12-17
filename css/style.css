@@ -1,0 +1,109 @@
+:root {
+    --bg: #ffffff;
+    --text: #0f172a;
+    --card: #f1f5f9;
+    --accent: #2563eb;
+}
+
+body.dark{
+    --bg: #020617;
+    --text: #e5e7eb;
+    --card: #020617;
+    --accent: #38bdf8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+margin: 0;
+font-family: system-ui, sans-serif;
+background: var(--bg);
+color: var(--text);
+transition: background 0.3s, color 0.3s;
+scroll-behavior: smooth;
+}
+
+
+nav {
+position: sticky;
+top: 0;
+display: flex;
+justify-content: space-between;
+padding: 16px 32px;
+background: var(--bg);
+z-index: 10;
+}
+
+
+nav a {
+margin-right: 16px;
+text-decoration: none;
+color: var(--text);
+font-weight: 600;
+}
+
+
+.hero {
+min-height: 80vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 40px;
+}
+
+
+section {
+max-width: 900px;
+margin: auto;
+padding: 80px 24px;
+}
+
+
+.skills-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+gap: 12px;
+}
+
+
+.skills-grid span {
+background: var(--card);
+padding: 12px;
+text-align: center;
+border-radius: 10px;
+}
+
+
+.project-card {
+background: var(--card);
+padding: 20px;
+border-radius: 14px;
+margin-bottom: 20px;
+}
+
+
+.project-controls button {
+margin-right: 10px;
+padding: 8px 12px;
+}
+
+
+.fade-section {
+opacity: 0;
+transform: translateY(30px);
+transition: all 0.8s ease;
+}
+
+
+.fade-section.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+
+footer {
+text-align: center;
+padding: 40px;
+}
