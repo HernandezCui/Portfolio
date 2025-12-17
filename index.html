@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuitlahuac | Software Developer</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
+
 <body>
     <nav>
         <span class="logo">Cuitlahuac</span>
@@ -46,7 +48,7 @@
 </section>
 
 <section id="contact" class="fade-section contact-section">
-  <h2 class="section-number">04. Get in touch</h2>
+  <h2 class="section-number center">04. Get in touch</h2>
 
   <div class="contact-grid">
     <!-- Left -->
@@ -54,21 +56,26 @@
       <h3>Let’s connect</h3>
       <p>I’m always open to discussing new projects, ideas, or opportunities. Feel free to reach out.</p>
 
-      <div class="social-links">
-        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank">LinkedIn</a>
-        <a href="https://github.com/HernandezCui" target="_blank">GitHub</a>
-      </div>
+     <div class="social-links">
+        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" aria-label="LinkedIn">
+    <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://github.com/HernandezCui" target="_blank" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+        </a>
     </div>
+</div>
 
-    <!-- Right -->
-    <form id="contactForm" class="contact-form">
-      <input type="text" name="name" placeholder="Your name" required />
-      <input type="email" name="email" placeholder="Your email" required />
-      <textarea name="message" placeholder="Your message" rows="6" required></textarea>
-      <button type="submit">Send Message</button>
-      <p id="formStatus"></p>
-    </form>
-  </div>
+
+<!-- Right -->
+<form id="contactForm" class="contact-form">
+<input type="text" name="name" placeholder="Your name" required />
+<input type="email" name="email" placeholder="Your email" required />
+<textarea name="message" placeholder="Your message" rows="6" required></textarea>
+<button type="submit">Send Message</button>
+<p id="formStatus"></p>
+</form>
+</div>
 </section>
 
 <footer>

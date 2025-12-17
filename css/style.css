@@ -39,10 +39,6 @@ section, header {
 }
 
 nav {
-position: sticky;
-top: 0;
-display: flex;
-justify-content: space-between;
 padding: 16px 32px;
 background: var(--bg);
 z-index: 10;
@@ -57,135 +53,175 @@ font-weight: 600;
 }
 
 .nav-link.active {
-  color: var(--accent);
+color: var(--accent);
 }
 
 .hero {
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 40px;
+min-height: 80vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 40px;
 }
 
+
 section {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+
+.skills-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+gap: 12px;
+}
+
+
+.skills-grid span {
+background: var(--card);
+padding: 12px;
+text-align: center;
+border-radius: 10px;
+}
+
+
+.project-card {
+background: var(--card);
+padding: 20px;
+border-radius: 14px;
+margin-bottom: 20px;
+}
+
+
+.project-controls button {
+margin-right: 10px;
+padding: 8px 12px;
+}
+
+
+.fade-section {
+opacity: 0;
+transform: translateY(30px);
+transition: all 0.8s ease;
+}
+
+
+.fade-section.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+
+footer {
+text-align: center;
+padding: 40px;
 }
 
 html {
-  scroll-snap-type: y proximity;
+scroll-snap-type: y proximity;
 }
+
 
 section, header {
-  scroll-snap-align: start;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-}
-
-.skills-grid span {
-  background: var(--card);
-  padding: 12px;
-  text-align: center;
-  border-radius: 10px;
-}
-
-.project-card {
-  background: var(--card);
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 20px;
-}
-
-.project-controls button {
-  margin-right: 10px;
-  padding: 8px 12px;
-}
-
-.fade-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-.fade-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-footer {
-  text-align: center;
-  padding: 40px;
+scroll-snap-align: start;
 }
 
 /* ===== Contact Section ===== */
 .contact-section {
-  min-height: 100vh;
+color: var(--accent);
+margin-bottom: 60px;
+min-height: 100vh;
+text-align: center;
 }
 
-.section-number {
-  font-size: 1.4rem;
-  color: var(--accent);
-  margin-bottom: 40px;
+.section-number.center {
+width: 100%;
+text-align: center;
+font-size: 1.6rem;
+color: var(--accent);
+margin: 0 auto 60px auto;
 }
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
+.contact-grid.centered {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+align-items: center;
+justify-items: center;
 }
+
+
+.contact-left {
+max-width: 420px;
+}
+
 
 .contact-left h3 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+font-size: 2rem;
+margin-bottom: 12px;
 }
+
+
+.social-links {
+margin-top: 30px;
+}
+
 
 .social-links a {
-  display: inline-block;
-  margin-right: 20px;
-  margin-top: 20px;
-  font-weight: 600;
-  color: var(--accent);
+font-size: 2.2rem;
+margin: 0 18px;
+color: var(--accent);
+transition: transform 0.3s ease;
 }
 
-.contact-form {
-  background: var(--card);
-  padding: 30px;
-  border-radius: 16px;
+
+.social-links a:hover {
+transform: translateY(-4px);
 }
+
+
+.contact-form {
+width: 100%;
+max-width: 420px;
+background: var(--card);
+padding: 30px;
+border-radius: 16px;
+}
+
 
 .contact-form input,
 .contact-form textarea {
-  width: 100%;
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
+width: 100%;
+margin-bottom: 15px;
+padding: 12px;
+border-radius: 8px;
+border: none;
 }
+
 
 .contact-form button {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: 600;
+background: var(--accent);
+color: white;
+border: none;
+padding: 12px 20px;
+border-radius: 8px;
+font-weight: 600;
+width: 100%;
 }
+
 
 #formStatus {
-  margin-top: 10px;
-  font-size: 0.9rem;
+margin-top: 10px;
+font-size: 0.9rem;
 }
 
+
 @media (max-width: 768px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
+.contact-grid.centered {
+grid-template-columns: 1fr;
+gap: 40px;
+}
 }
