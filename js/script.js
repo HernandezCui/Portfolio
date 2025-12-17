@@ -1,121 +1,111 @@
-// ===== Scroll Animations =====
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-});
+document.addEventListener('DOMContentLoaded', () => {
 
-document.querySelectorAll('.fade-section').forEach(s => observer.observe(s));
+  /* ==========================
+     HOME STAGGER FADE
+  ========================== */
+  const homeElems = document.querySelectorAll('#home .home-elem');
+  homeElems.forEach((el, i) =>
+    setTimeout(() => el.classList.add('visible'), i * 250)
+  );
 
-// Animate contact-left separately
-const contactLeft = document.querySelector('.contact-left');
+  /* ==========================
+     TYPING EFFECT
+  ========================== */
+  const typingEl = document.querySelector('.typing');
+  const words = ['Software Developer', 'Web Developer', 'Cyber Enthusiast'];
+  let w = 0, c = 0, del = false;
 
-const contactObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      contactObserver.unobserve(entry.target); // only trigger once
-    }
-  });
-}, { threshold: 0.3 });
+  function typeLoop() {
+    const word = words[w];
+    c = del ? c - 1 : c + 1;
+    typingEl.textContent = word.substring(0, c);
 
-if (contactLeft) contactObserver.observe(contactLeft);
+    let speed = del ? 50 : 120;
+    if (!del && c === word.length) speed = 1200, del = true;
+    else if (del && c === 0) del = false, w = (w + 1) % words.length, speed = 500;
 
-// ===== Dark Mode =====
-const toggle = document.getElementById('themeToggle');
-if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    setTimeout(typeLoop, speed);
+  }
+  typeLoop();
 
-toggle.onclick = () => {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-};
+  /* ==========================
+     FADE SECTIONS
+  ========================== */
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+  }, { threshold: 0.2 });
 
-// ===== CONTACT FORM (EmailJS) =====
-// 1. Go to https://www.emailjs.com/
-// 2. Create a service + template
-// 3. Replace the values below
+  document.querySelectorAll('.fade-section').forEach(s => fadeObserver.observe(s));
 
-emailjs.init('YOUR_PUBLIC_KEY');
-
-const form = document.getElementById('contactForm');
-const status = document.getElementById('formStatus');
-
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-    .then(() => {
-      status.textContent = 'Message sent successfully.';
-      status.style.color = 'green';
-      form.reset();
-    })
-    .catch(() => {
-      status.textContent = 'Failed to send message. Try again.';
-      status.style.color = 'red';
+  /* ==========================
+     NAV ACTIVE LINK
+  ========================== */
+  const navLinks = document.querySelectorAll('.nav-link');
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        document
+          .querySelector(`a[href="#${e.target.id}"]`)
+          ?.classList.add('active');
+      }
     });
-});
+  }, { threshold: 0.6 });
 
-// ===== Project Rendering =====
-const container = document.getElementById('projectsContainer');
+  document.querySelectorAll('section').forEach(sec => spy.observe(sec));
 
-function renderProjects(projects) {
-  container.innerHTML = '';
-  projects.forEach(p => {
-    const div = document.createElement('div');
-    div.className = 'project-card fade-section visible';
-    div.innerHTML = `<h3>${p.title}</h3><p>${p.description}</p><a href="${p.link}" target="_blank">View</a>`;
-    container.appendChild(div);
-  });
-}
+  /* ==========================
+     MATRIX CANVAS
+  ========================== */
+  const canvas = document.getElementById('matrixCanvas');
+  const ctx = canvas.getContext('2d');
 
-// Local Projects
-fetch('data/projects.json')
-  .then(res => res.json())
-  .then(renderProjects);
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-// GitHub Projects
-async function loadGitHub() {
-  const res = await fetch('https://api.github.com/users/HernandezCui/repos');
-  const data = await res.json();
-  renderProjects(data.slice(0, 6).map(repo => ({
-    title: repo.name,
-    description: repo.description || 'No description',
-    link: repo.html_url
-  })));
-}
+  const chars = '01アカサタナハマヤラワ<>[]{}$#';
+  const fontSize = 14;
+  let cols = Math.floor(canvas.width / fontSize);
+  let drops = Array(cols).fill(1);
 
-const navLinks = document.querySelectorAll('.nav-link');
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(2,6,23,0.18)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-const spyObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(link => link.classList.remove('active'));
-      const active = document.querySelector(`a[href="#${entry.target.id}"]`);
-      active?.classList.add('active');
-    }
-  });
-}, { threshold: 0.6 });
+    ctx.fillStyle = '#22c55e';
+    ctx.font = `${fontSize}px monospace`;
 
-['about','skills','projects','contact'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) spyObserver.observe(el);
-});
-
-function staggerChildren(parentSelector, childSelector) {
-  document.querySelectorAll(parentSelector).forEach(parent => {
-    const children = parent.querySelectorAll(childSelector);
-    children.forEach((el, i) => {
-      el.style.transitionDelay = `${i * 120}ms`;
+    drops.forEach((y, i) => {
+      ctx.fillText(chars[Math.random() * chars.length | 0], i * fontSize, y * fontSize);
+      if (y * fontSize > canvas.height && Math.random() > 0.97) drops[i] = 0;
+      drops[i]++;
     });
-  });
-}
+  }
 
-staggerChildren('.skills-grid', 'span');
-staggerChildren('#projectsContainer', '.project-card');
+  setInterval(drawMatrix, 50);
 
-// Controls
-document.getElementById('loadLocal').onclick = () => {
-  fetch('data/projects.json').then(r => r.json()).then(renderProjects);
-};
+  /* ==========================
+     MATRIX PER SECTION
+  ========================== */
+  const body = document.body;
 
-document.getElementById('loadGitHub').onclick = loadGitHub;
+  const matrixObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (entry.target.dataset.matrix === 'on') {
+          body.classList.add('matrix-visible');
+          body.classList.remove('matrix-hidden');
+        } else {
+          body.classList.add('matrix-hidden');
+          body.classList.remove('matrix-visible');
+        }
+      }
+    });
+  }, { threshold: 0.6 });
+
+  document.querySelectorAll('section').forEach(sec => matrixObserver.observe(sec));
+});

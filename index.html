@@ -1,95 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuitlahuac | Software Developer</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuitlahuac | Software Developer</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
-
 <body>
-    <nav>
-        <span class="logo">Cuitlahuac</span>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-            <button id="themeToggle">🌙</button>
-        </div>
-    </nav>
-  
- <section id="home" class="hero fade-section"> 
-    <h1> Hi, I'm</h1>
-    <h2 class="name">Cuitlahuac</h2>
-    <h3 class="typing"></h3>
-    <p>Software Developer | Problem Solver</p>
-
-    <div class="home-buttons">
-        <a href="#contact" class="btn">Get in touch</a>
-        <a href="#projects" class="btn btn-secondary">&lt;/&gt; View projects</a>
+    <div class="cyber-bg"></div>
+    <canvas id="matrixCanvas"></canvas>
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <span class="logo">Cuitlahuac</span>
+    <div class="nav-links">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </div>
- </section>
- 
- <section id="about" class="fade-section">
-    <h2>About Me</h2>
-    <p> I am a recent Software developer graduate who is ready to take on any projects.</p>
- </section>
+  </nav>
 
-<section id="skills" class="fade-section">
+  <!-- ===== HERO / HOME ===== -->
+  <section id="home" class="hero" data-matrix="on">
+    <h1 class="home-elem">Hi, I'm</h1>
+    <h2 class="name home-elem">Cuitlahuac</h2>
+    <h3 class="typing home-elem"></h3>
+    <p class="profession home-elem">Software Developer | Problem Solver</p>
+    <div class="home-buttons home-elem">
+      <a href="#contact" class="btn">Get in touch</a>
+      <a href="#projects" class="btn btn-secondary">&lt;/&gt; View projects</a>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="fade-section section-dark">
+    <h2>About Me</h2>
+    <p>I am a recent Software Developer graduate ready to take on challenging projects.</p>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="fade-section" data-matrix="on">
     <h2>Skills</h2>
     <div class="skills-grid">
-    <span>Java</span><span>JavaScript</span><span>HTML</span><span>CSS</span>
-    <span>MySQL</span><span>Git</span><span>React</span><span>Linux</span>
-</div>
-</section>
+      <span>Java</span><span>JavaScript</span><span>HTML</span><span>CSS</span>
+      <span>MySQL</span><span>Git</span><span>React</span><span>Linux</span>
+    </div>
+  </section>
 
-<section id="projects" class="fade-section">
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="fade-section section-dark">
     <h2>Projects</h2>
     <div class="project-controls">
-    <button id="loadLocal">Local Projects</button>
-    <button id="loadGitHub">GitHub Projects</button>
-</div>
-<div id="projectsContainer"></div>
-</section>
-
-<section id="contact" class="fade-section contact-section">
-  <h2 class="section-number center">04. Get in touch</h2>
-
-  <div class="contact-grid centered">
-    <!-- Left -->
-    <div class="contact-left">
-      <h3>Let’s connect</h3>
-      <p>I’m always open to discussing new projects, ideas, or opportunities. Feel free to reach out.</p>
-
-     <div class="social-links">
-        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" aria-label="LinkedIn">
-    <i class="fab fa-linkedin"></i>
-    </a>
-    <a href="https://github.com/HernandezCui" target="_blank" aria-label="GitHub">
-        <i class="fab fa-github"></i>
-        </a>
+      <button id="loadLocal">Local Projects</button>
+      <button id="loadGitHub">GitHub Projects</button>
     </div>
-</div>
+    <div id="projectsContainer"></div>
+  </section>
 
-
-<!-- Right -->
-    <form id="contactForm" class="contact-form">
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="fade-section contact-section" data-matrix="on">
+    <h2 class="section-number center">04. Get in touch</h2>
+    <div class="contact-grid centered">
+      <!-- Left -->
+      <div class="contact-left">
+        <h3>Let’s connect</h3>
+        <p>I’m always open to discussing new projects, ideas, or opportunities. Feel free to reach out.</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/HernandezCui" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+      <!-- Right -->
+      <form id="contactForm" class="contact-form">
         <input type="text" name="name" placeholder="Your name" required />
         <input type="email" name="email" placeholder="Your email" required />
         <textarea name="message" placeholder="Your message" rows="6" required></textarea>
         <button type="submit">Send Message</button>
         <p id="formStatus"></p>
-        </form>
+      </form>
     </div>
-</section>
+  </section>
 
-<footer>
-<p>© 2025 Cuitlahuac</p>
-</footer>
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>© 2025 Cuitlahuac</p>
+  </footer>
 
-<script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
