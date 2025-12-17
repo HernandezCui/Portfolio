@@ -1,102 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cuitlahuac | Software Developer</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-    <div id="bootScreen">
-  <pre class="terminal">
+  <!-- Boot Screen -->
+  <div id="bootScreen" aria-hidden="true">
+    <pre class="terminal">
 Initializing system...
 Authenticating user...
 Access granted.
 Loading portfolio<span class="blink">_</span>
-  </pre>
-</div>
-    <div class="cyber-bg"></div>
-    <canvas id="matrixCanvas"></canvas>
-  <!-- ===== NAVIGATION ===== -->
-  <nav>
+    </pre>
+  </div>
+
+  <!-- Background layers -->
+  <div class="cyber-bg" aria-hidden="true"></div>
+  <canvas id="matrixCanvas" aria-hidden="true"></canvas>
+
+  <!-- NAV -->
+  <nav class="nav">
     <span class="logo glitch" data-text="Cuitlahuac">Cuitlahuac</span>
+
     <div class="nav-links">
-      <a href="#home" class="nav-link">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#projects" class="nav-link glitch" data-text=""Projects>Projects</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#home" class="nav-link glitch" data-text="Home">Home</a>
+      <a href="#about" class="nav-link glitch" data-text="About">About</a>
+      <a href="#skills" class="nav-link glitch" data-text="Skills">Skills</a>
+      <a href="#projects" class="nav-link glitch" data-text="Projects">Projects</a>
+      <a href="#contact" class="nav-link glitch" data-text="Contact">Contact</a>
     </div>
   </nav>
 
-  <!-- ===== HERO / HOME ===== -->
-  <section id="home" class="hero" data-matrix="on">
-    <h1 class="home-elem">Hi, I'm</h1>
-    <h2 class="name home-elem">Cuitlahuac</h2>
-    <h3 class="typing home-elem"></h3>
-    <p class="profession home-elem">Software Developer | Problem Solver</p>
-    <div class="home-buttons home-elem">
-      <a href="#contact" class="btn">Get in touch</a>
-      <a href="#projects" class="btn btn-secondary">&lt;/&gt; View projects</a>
-    </div>
-  </section>
+  <!-- HOME -->
+  <section id="home" class="section hero" data-matrix="on">
+    <div class="hero-grid">
+      <!-- Left: text -->
+      <div class="hero-left">
+        <h1 class="home-elem">Hi, I'm</h1>
+        <h2 class="name home-elem">Cuitlahuac</h2>
+        <h3 class="typing home-elem"></h3>
+        <p class="profession home-elem">Software Developer | Problem Solver</p>
 
-  <!-- ===== ABOUT ===== -->
-  <section id="about" class="fade-section section-dark">
-    <h2>About Me</h2>
-    <p>I am a recent Software Developer graduate ready to take on challenging projects.</p>
-  </section>
-
-  <!-- ===== SKILLS ===== -->
-  <section id="skills" class="fade-section" data-matrix="on">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <span>Java</span><span>JavaScript</span><span>HTML</span><span>CSS</span>
-      <span>MySQL</span><span>Git</span><span>React</span><span>Linux</span>
-    </div>
-  </section>
-
-  <!-- ===== PROJECTS ===== -->
-  <section id="projects" class="fade-section section-dark">
-    <h2>Projects</h2>
-    <div class="project-controls">
-      <button id="loadLocal">Local Projects</button>
-      <button id="loadGitHub">GitHub Projects</button>
-    </div>
-    <div id="projectsContainer"></div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="fade-section contact-section" data-matrix="on">
-    <h2 class="section-number center">04. Get in touch</h2>
-    <div class="contact-grid centered">
-      <!-- Left -->
-      <div class="contact-left">
-        <h3>Let’s connect</h3>
-        <p>I’m always open to discussing new projects, ideas, or opportunities. Feel free to reach out.</p>
-        <div class="social-links">
-          <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" aria-label="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://github.com/HernandezCui" target="_blank" aria-label="GitHub">
-            <i class="fab fa-github"></i>
-          </a>
+        <div class="home-buttons home-elem">
+          <a href="#contact" class="btn">Get in touch</a>
+          <a href="#projects" class="btn btn-secondary">&lt;/&gt; View projects</a>
         </div>
       </div>
-      <!-- Right -->
-      <form id="contactForm" class="contact-form">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="Your email" required />
-        <textarea name="message" placeholder="Your message" rows="6" required></textarea>
-        <button type="submit">Send Message</button>
-        <p id="formStatus"></p>
-      </form>
+
+      <!-- Right: image slot (put your code image here) -->
+      <div class="hero-right home-elem">
+        <!-- Replace src with your image path -->
+        <img class="hero-image" src="images/code.png" alt="Code preview" />
+      </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
+  <!-- ABOUT -->
+  <section id="about" class="section fade-section section-dark">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>I am a recent Software Developer graduate ready to take on challenging projects.</p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section fade-section" data-matrix="on">
+    <div class="container">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <span>Java</span><span>JavaScript</span><span>HTML</span><span>CSS</span>
+        <span>MySQL</span><span>Git</span><span>React</span><span>Linux</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section fade-section section-dark">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="project-controls">
+        <button id="loadLocal" type="button">Local Projects</button>
+        <button id="loadGitHub" type="button">GitHub Projects</button>
+      </div>
+
+      <div id="projectsContainer"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section fade-section contact-section" data-matrix="on">
+    <div class="container">
+      <h2 class="section-number center">04. Get in touch</h2>
+
+      <div class="contact-grid centered">
+        <div class="contact-left">
+          <h3>Let’s connect</h3>
+          <p>I’m always open to discussing new projects, ideas, or opportunities. Feel free to reach out.</p>
+
+          <div class="social-links">
+            <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" aria-label="LinkedIn" rel="noreferrer">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/HernandezCui" target="_blank" aria-label="GitHub" rel="noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+
+        <form id="contactForm" class="contact-form">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <textarea name="message" placeholder="Your message" rows="6" required></textarea>
+          <button type="submit">Send Message</button>
+          <p id="formStatus"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
     <p>© 2025 Cuitlahuac</p>
   </footer>
 
