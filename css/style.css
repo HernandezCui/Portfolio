@@ -492,3 +492,67 @@ body.loaded #bootScreen{
     transform: translateY(0) scale(1);
   }
 }
+
+/* ==========================
+   TOP-RIGHT AVATAR
+========================== */
+.nav-avatar{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-left: 6px;
+  pointer-events: none;
+}
+
+.nav-avatar .avatar-face{
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(15,23,42,.85);
+  border: 1px solid rgba(56,189,248,.35);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.45),
+    0 0 16px rgba(56,189,248,.18);
+  position: relative;
+  animation: avatarFloat 4.2s ease-in-out infinite;
+}
+
+@keyframes avatarFloat{
+  0%,100%{ transform: translateY(0) rotate(-1deg); }
+  50%{ transform: translateY(-5px) rotate(1deg); }
+}
+
+.nav-avatar .eye{
+  width: 7px;
+  height: 7px;
+  background: #22c55e;
+  border-radius: 999px;
+  position: absolute;
+  top: 14px;
+  animation: blinkEye 4.8s infinite;
+}
+
+.nav-avatar .eye.left{ left: 12px; }
+.nav-avatar .eye.right{ right: 12px; }
+
+@keyframes blinkEye{
+  0%, 46%, 100% { transform: scaleY(1); }
+  48% { transform: scaleY(0.12); }
+  50% { transform: scaleY(1); }
+}
+
+.nav-avatar .smile{
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 18px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-bottom: 2px solid rgba(56,189,248,.85);
+  border-radius: 0 0 14px 14px;
+}
+
+/* Hide avatar on very small screens */
+@media (max-width: 520px){
+  .nav-avatar{ display:none; }
+}
