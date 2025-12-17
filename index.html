@@ -10,10 +10,10 @@
     <nav>
         <span class="logo">Cuitlahuac</span>
         <div class="nav-links">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#skills" class="nav-link">Skills</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
             <button id="themeToggle">🌙</button>
         </div>
     </nav>
@@ -45,12 +45,31 @@
 <div id="projectsContainer"></div>
 </section>
 
+<section id="contact" class="fade-section contact-section">
+  <h2 class="section-number">04. Get in touch</h2>
 
-<section id="contact" class="fade-section">
-<h2>Contact</h2>
-<p>Email: Hernandeztorrescui@gmail.com</p>
+  <div class="contact-grid">
+    <!-- Left -->
+    <div class="contact-left">
+      <h3>Let’s connect</h3>
+      <p>I’m always open to discussing new projects, ideas, or opportunities. Feel free to reach out.</p>
+
+      <div class="social-links">
+        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank">LinkedIn</a>
+        <a href="https://github.com/HernandezCui" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <form id="contactForm" class="contact-form">
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Your email" required />
+      <textarea name="message" placeholder="Your message" rows="6" required></textarea>
+      <button type="submit">Send Message</button>
+      <p id="formStatus"></p>
+    </form>
+  </div>
 </section>
-
 
 <footer>
 <p>© 2025 Cuitlahuac</p>

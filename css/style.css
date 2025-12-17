@@ -25,6 +25,18 @@ transition: background 0.3s, color 0.3s;
 scroll-behavior: smooth;
 }
 
+body {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section, header {
+  scroll-margin-top: 90px;
+}
 
 nav {
 position: sticky;
@@ -45,89 +57,135 @@ font-weight: 600;
 }
 
 .nav-link.active {
-color: var(--accent);
-} 
+  color: var(--accent);
+}
 
 .hero {
-min-height: 80vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-padding: 40px;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
 }
-
 
 section {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-}
-
-
-.skills-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-gap: 12px;
-}
-
-
-.skills-grid span {
-background: var(--card);
-padding: 12px;
-text-align: center;
-border-radius: 10px;
-}
-
-
-.project-card {
-background: var(--card);
-padding: 20px;
-border-radius: 14px;
-margin-bottom: 20px;
-}
-
-
-.project-controls button {
-margin-right: 10px;
-padding: 8px 12px;
-}
-
-
-.fade-section {
-opacity: 0;
-transform: translateY(30px);
-transition: all 0.8s ease;
-}
-
-
-.fade-section.visible {
-opacity: 1;
-transform: translateY(0);
-}
-
-section, header {
-scroll-margin-top: 90px;
-}
-
-footer {
-text-align: center;
-padding: 40px;
-}
-
-body {
-animation: fadeIn 0.6s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 html {
-scroll-snap-type: y proximity;
+  scroll-snap-type: y proximity;
 }
 
 section, header {
-scroll-snap-align: start;
+  scroll-snap-align: start;
 }
 
-@keyframes fadeIn {
-from { opacity: 0; transform: translateY(8px); }
-to { opacity: 1; transform: translateY(0); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.skills-grid span {
+  background: var(--card);
+  padding: 12px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.project-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.project-controls button {
+  margin-right: 10px;
+  padding: 8px 12px;
+}
+
+.fade-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+}
+
+/* ===== Contact Section ===== */
+.contact-section {
+  min-height: 100vh;
+}
+
+.section-number {
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 40px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.contact-left h3 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin-right: 20px;
+  margin-top: 20px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.contact-form {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+}
+
+.contact-form button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+#formStatus {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }
