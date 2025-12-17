@@ -149,21 +149,64 @@ margin: 0 auto 60px auto;
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 60px;
+max-width: 900px;
 align-items: center;
-justify-items: center;
+margin: 0 auto;
 }
 
+/* Contact-left headings and paragraph */
+.contact-left h3 {
+    font-size: 2.5rem; /* increased from 2rem */
+    margin-bottom: 30px; /* reduce bottom margin for better spacing */
+}
+
+.contact-left p {
+    font-size: 1.2rem; /* increased from default */
+    margin-bottom: 40px; /* adjust spacing */
+}
 
 .contact-left {
 max-width: 420px;
+justify-self: start;
+text-align: center;
+padding-bottom: 20px;
 }
 
 
-.contact-left h3 {
-font-size: 2rem;
-margin-bottom: 12px;
+/* Contact-left fade-up */
+.contact-left h3,
+.contact-left p {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
 }
 
+.contact-left.visible h3,
+.contact-left.visible p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Social links slight upward move */
+.contact-left .social-links a {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s ease;
+}
+
+.contact-left.visible .social-links a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger social links */
+.contact-left.visible .social-links a:nth-child(1) {
+  transition-delay: 0.2s;
+}
+.contact-left.visible .social-links a:nth-child(2) {
+  transition-delay: 0.4s;
+}
 
 .social-links {
 margin-top: 30px;
@@ -189,6 +232,7 @@ max-width: 420px;
 background: var(--card);
 padding: 30px;
 border-radius: 16px;
+justify-self: end;
 }
 
 

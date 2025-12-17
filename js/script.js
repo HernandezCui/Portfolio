@@ -7,6 +7,20 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.fade-section').forEach(s => observer.observe(s));
 
+// Animate contact-left separately
+const contactLeft = document.querySelector('.contact-left');
+
+const contactObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      contactObserver.unobserve(entry.target); // only trigger once
+    }
+  });
+}, { threshold: 0.3 });
+
+if (contactLeft) contactObserver.observe(contactLeft);
+
 // ===== Dark Mode =====
 const toggle = document.getElementById('themeToggle');
 if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
