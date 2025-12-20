@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Work Day Scheduler",
+    "description": "A Calendar app for scheduling your work day.",
+    "link": "https://hernandezcui.github.io/Calendar-Application/",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "image": "images/projects/portfolio.png"
+  },
+  {
+    "title": "CRUD App",
+    "description": "Full CRUD web app with a MySQL database and authentication.",
+    "link": "https://github.com/yourrepo",
+    "tech": ["Java", "JSP", "MySQL"],
+    "image": "images/projects/crud.png"
+  }
+]

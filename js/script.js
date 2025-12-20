@@ -204,10 +204,12 @@ logo?.addEventListener('mouseleave', () => {
   // ==========================
   // 3D tilt project cards
   // ==========================
+const canTilt = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+if (canTilt) {
   document.addEventListener('mousemove', (e) => {
     document.querySelectorAll('.project-card').forEach(card => {
       const rect = card.getBoundingClientRect();
-
       const inside =
         e.clientX > rect.left && e.clientX < rect.right &&
         e.clientY > rect.top && e.clientY < rect.bottom;
@@ -219,9 +221,22 @@ logo?.addEventListener('mouseleave', () => {
 
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+
+      card.style.transform =
+        `perspective(900px)
+         rotateY(${x * 10}deg)
+         rotateX(${-y * 10}deg)
+         translateY(-2px)`;
     });
   }, { passive: true });
+
+  // Reset when leaving page
+  document.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.style.transform = '';
+    });
+  });
+}
 
   // ==========================
   // Projects loader (safe)
@@ -231,21 +246,44 @@ logo?.addEventListener('mouseleave', () => {
   const loadGitHubBtn = document.getElementById('loadGitHub');
 
   function renderProjects(projects) {
-    if (!container) return;
-    container.innerHTML = '';
-    projects.forEach(p => {
-      const div = document.createElement('div');
-      div.className = 'project-card fade-section visible';
-      div.innerHTML = `<h3>${p.title}</h3><p>${p.description}</p><a href="${p.link}" target="_blank" rel="noreferrer">View</a>`;
-      container.appendChild(div);
-    });
-  }
+  if (!container) return;
+  container.innerHTML = '';
 
-  async function loadLocal() {
-    const res = await fetch('data/projects.json');
-    const data = await res.json();
-    renderProjects(data);
-  }
+  projects.forEach(p => {
+    const a = document.createElement('a');
+    a.className = 'project-card fade-section visible';
+    a.href = p.link;
+    a.target = '_blank';
+    a.rel = 'noreferrer';
+    a.setAttribute('aria-label', `Open project: ${p.title}`);
+
+    const techHTML = Array.isArray(p.tech)
+      ? p.tech.map(t => `<span>${t}</span>`).join('')
+      : '';
+
+    const imgHTML = p.image
+      ? `<img class="project-thumb" src="${p.image}" alt="${p.title} preview" loading="lazy" />`
+      : '';
+
+    a.innerHTML = `
+      ${imgHTML}
+      <h3>${p.title}</h3>
+      <p>${p.description}</p>
+      <div class="project-tech">${techHTML}</div>
+      <div class="project-cta">Open Project →</div>
+    `;
+
+    container.appendChild(a);
+  });
+
+  staggerChildren?.('#projectsContainer', '.project-card');
+}
+
+ async function loadLocal() {
+  const res = await fetch('data/projects.json');
+  const data = await res.json();
+  renderProjects(data);
+}
 
   async function loadGitHub() {
     const res = await fetch('https://api.github.com/users/HernandezCui/repos');
