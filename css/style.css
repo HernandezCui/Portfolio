@@ -781,3 +781,128 @@ body.loaded #bootScreen{
   .bitmoji-img{ width: 240px; }
   .about-avatar::before{ width: 260px; height: 260px; }
 }
+
+/* ==========================
+   SKILLS (Screenshot Style Cards)
+========================== */
+
+.skills-section.section-dark{
+  background: rgba(2,6,23,.35);  /* was solid dark */
+  backdrop-filter: blur(2px);
+}
+
+/* Title bigger + centered */
+.skills-title{
+  text-align: center;
+  font-size: clamp(2.6rem, 4.5vw, 3.4rem);
+  font-weight: 900;
+  margin: 0 0 56px;
+  letter-spacing: 0.4px;
+}
+
+.skills-title .num{
+  color: var(--accent);
+  margin-right: 12px;
+}
+
+/* 3 cards grid */
+.skills-cards{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  align-items: start;
+  perspective: 1100px; /* key for 3D */
+}
+
+/* Card base */
+.skills-card{
+  background: rgba(15,23,42,.78);
+  border: 1px solid rgba(56,189,248,.18);
+  border-radius: 18px;
+  padding: 26px 24px;
+
+  box-shadow: 0 18px 55px rgba(0,0,0,.45);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft glow layer like the screenshot vibe */
+.skills-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 25% 20%, rgba(56,189,248,.18), transparent 55%);
+  opacity: 0;
+  transition: opacity .18s ease;
+  pointer-events: none;
+}
+
+/* Hover glow */
+.skills-card:hover{
+  border-color: rgba(56,189,248,.55);
+  box-shadow: 0 22px 70px rgba(0,0,0,.55);
+}
+.skills-card:hover::before{
+  opacity: 1;
+}
+
+/* Heading = BLUE */
+.skills-card-title{
+  margin: 0 0 18px;
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: var(--accent); /* blue */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateZ(18px);
+}
+
+.skills-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(56,189,248,.14);
+  border: 1px solid rgba(56,189,248,.30);
+  color: var(--accent);
+  font-weight: 900;
+  transform: translateZ(18px);
+}
+
+/* Chips */
+.skills-chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  transform: translateZ(12px);
+}
+
+.chip{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.08);
+  color: rgba(229,231,235,.92);
+  font-size: 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Responsive */
+@media (max-width: 1000px){
+  .skills-cards{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px){
+  .skills-cards{ grid-template-columns: 1fr; }
+}

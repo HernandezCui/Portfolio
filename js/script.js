@@ -304,6 +304,30 @@ function initProjectTilt() {
     $all('.project-card').forEach(card => (card.style.transform = ''));
   });
 }
+/* ==========================
+   3D tilt for SKILLS cards
+========================== */
+const canTiltSkills = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+if (canTiltSkills) {
+  document.querySelectorAll('.skills-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+
+      card.style.transform =
+        `perspective(900px)
+         rotateY(${x * 10}deg)
+         rotateX(${-y * 10}deg)
+         translateY(-3px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
 
 // ==========================
 // Cursor trail
