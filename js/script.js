@@ -2,33 +2,33 @@ document.addEventListener('DOMContentLoaded', () => {
   // Boot screen
   setTimeout(() => document.body.classList.add('loaded'), 2200);
 
-  // HOME stagger fade (runs on load reliably)
-  const homeElems = document.querySelectorAll('#home .home-elem');
-  homeElems.forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 220));
+  // HOME stagger fade
+  document.querySelectorAll('#home .home-elem').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 220);
+  });
 
-  // Reveal hero image after text starts
-const heroRight = document.querySelector('.hero-right');
-setTimeout(() => heroRight?.classList.add('reveal'), 550);
+  // Reveal hero image
+  const heroRight = document.querySelector('.hero-right');
+  setTimeout(() => heroRight?.classList.add('reveal'), 550);
 
   // Typing effect
   const typingEl = document.querySelector('.typing');
-  const words = ['Software Developer', 'Web Developer', 'Cyber Enthusiast'];
-  let w = 0, c = 0, del = false;
+  if (typingEl) {
+    const words = ['Software Developer', 'Web Developer', 'Cyber Enthusiast'];
+    let w = 0, c = 0, del = false;
 
-  function typeLoop() {
-    if (!typingEl) return;
-    const word = words[w];
+    (function typeLoop() {
+      const word = words[w];
+      c = del ? c - 1 : c + 1;
+      typingEl.textContent = word.substring(0, c);
 
-    c = del ? c - 1 : c + 1;
-    typingEl.textContent = word.substring(0, c);
+      let speed = del ? 55 : 120;
+      if (!del && c === word.length) { del = true; speed = 1100; }
+      else if (del && c === 0) { del = false; w = (w + 1) % words.length; speed = 500; }
 
-    let speed = del ? 55 : 120;
-    if (!del && c === word.length) { del = true; speed = 1100; }
-    else if (del && c === 0) { del = false; w = (w + 1) % words.length; speed = 500; }
-
-    setTimeout(typeLoop, speed);
+      setTimeout(typeLoop, speed);
+    })();
   }
-  typeLoop();
 
   // Fade-in sections
   const fadeObserver = new IntersectionObserver((entries) => {
@@ -50,263 +50,241 @@ setTimeout(() => heroRight?.classList.add('reveal'), 550);
 
   document.querySelectorAll('section').forEach(sec => spy.observe(sec));
 
-  // ==========================
-  // MATRIX (mouse reactive)
-  // ==========================
+  /* ==========================
+     MATRIX (mouse reactive)
+  ========================== */
   const canvas = document.getElementById('matrixCanvas');
   const ctx = canvas?.getContext('2d');
-  if (!canvas || !ctx) return;
-
   const body = document.body;
 
-  let mouseX = -9999;
-  let mouseY = -9999;
-  let mouseActive = false;
+  if (canvas && ctx) {
+    let mouseX = -9999, mouseY = -9999;
+    let mouseActive = false;
+    let burstUntil = 0;
 
-  let burstUntil = 0; // timestamp for burst mode
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      mouseActive = true;
+    }, { passive: true });
 
+    window.addEventListener('mouseleave', () => {
+      mouseActive = false;
+      mouseX = -9999;
+      mouseY = -9999;
+    });
 
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    mouseActive = true;
-  });
+    const logo = document.querySelector('.logo');
+    logo?.addEventListener('mouseenter', () => {
+      burstUntil = Date.now() + 650;
+      const r = logo.getBoundingClientRect();
+      mouseX = r.left + r.width / 2;
+      mouseY = r.top + r.height / 2;
+      mouseActive = true;
+    });
 
-  window.addEventListener('mouseleave', () => {
-    mouseActive = false;
-    mouseX = -9999;
-    mouseY = -9999;
-  });
+    const chars = '01アカサタナハマヤラワ<>[]{}$#';
+    const fontSize = 14;
 
-  const logo = document.querySelector('.logo');
+    let cols = 0;
+    let drops = [];
 
-logo?.addEventListener('mouseenter', () => {
-  // burst for 650ms
-  burstUntil = Date.now() + 650;
-  // center burst near logo
-  const r = logo.getBoundingClientRect();
-  mouseX = r.left + r.width / 2;
-  mouseY = r.top + r.height / 2;
-  mouseActive = true;
-});
+    function setupMatrix() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      cols = Math.floor(canvas.width / fontSize);
+      drops = Array(cols).fill(1);
+    }
 
-logo?.addEventListener('mouseleave', () => {
-  // let it fade naturally
-});
+    setupMatrix();
+    window.addEventListener('resize', setupMatrix);
 
-  const chars = '01アカサタナハマヤラワ<>[]{}$#';
-  const fontSize = 14;
+    let matrixInterval = 50;
+    let matrixTimer = null;
 
-  let cols = 0;
-  let drops = [];
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(2,6,23,0.18)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  function setupMatrix() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+      ctx.font = `${fontSize}px monospace`;
 
-    cols = Math.floor(canvas.width / fontSize);
-    drops = Array(cols).fill(1);
-  }
+      const now = Date.now();
+      const bursting = now < burstUntil;
+      const radius = bursting ? 260 : 140;
 
-  setupMatrix();
-  window.addEventListener('resize', setupMatrix);
+      for (let i = 0; i < drops.length; i++) {
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
 
-  // scroll-based speed (stable + safe)
-  let matrixInterval = 50;
-  let matrixTimer = null;
+        ctx.fillStyle = '#22c55e';
 
-  function drawMatrix() {
-    // fade trail
-    ctx.fillStyle = 'rgba(2,6,23,0.18)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        if (mouseActive) {
+          const dx = x - mouseX;
+          const dy = y - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-    // base color
-    ctx.fillStyle = '#22c55e';
-    ctx.font = `${fontSize}px monospace`;
-
-    // mouse influence radius
-    const now = Date.now();
-    const bursting = now < burstUntil;
-    const radius = bursting ? 260 : 140;
-
-    for (let i = 0; i < drops.length; i++) {
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
-
-      // Mouse-reactive brightness + “push”
-      if (mouseActive) {
-        const dx = x - mouseX;
-        const dy = y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < radius) {
-          // brighten near mouse
-        ctx.fillStyle = bursting ? '#38bdf8' : '#22c55e';
-
-          // push the stream upward slightly near mouse
-          drops[i] = Math.max(0, drops[i] - (bursting ? 6 : 2));
-        } else {
-          ctx.fillStyle = '#22c55e';
+          if (dist < radius) {
+            ctx.fillStyle = bursting ? '#38bdf8' : '#22c55e';
+            drops[i] = Math.max(0, drops[i] - (bursting ? 6 : 2));
+          }
         }
+
+        const ch = chars[(Math.random() * chars.length) | 0];
+        ctx.fillText(ch, x, y);
+
+        if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
       }
+    }
 
-      const ch = chars[(Math.random() * chars.length) | 0];
-      ctx.fillText(ch, x, y);
+    function restartMatrixTimer() {
+      if (matrixTimer) clearInterval(matrixTimer);
+      matrixTimer = setInterval(drawMatrix, matrixInterval);
+    }
 
-      // reset with randomness
-      if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
-      drops[i]++;
+    restartMatrixTimer();
+
+    window.addEventListener('scroll', () => {
+      const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      const ratio = window.scrollY / maxScroll;
+      const newSpeed = Math.round(Math.max(22, 70 - ratio * 45));
+
+      if (newSpeed !== matrixInterval) {
+        matrixInterval = newSpeed;
+        restartMatrixTimer();
+      }
+    }, { passive: true });
+
+    // Matrix per-section visibility
+    const matrixObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        if (entry.target.dataset.matrix === 'on') {
+          body.classList.add('matrix-visible');
+          body.classList.remove('matrix-hidden');
+        } else {
+          body.classList.add('matrix-hidden');
+          body.classList.remove('matrix-visible');
+        }
+      });
+    }, { threshold: 0.55 });
+
+    document.querySelectorAll('section').forEach(sec => matrixObserver.observe(sec));
+
+    // Mobile optimization
+    if (window.innerWidth < 768) {
+      if (matrixTimer) clearInterval(matrixTimer);
+      body.classList.add('matrix-hidden');
+      body.classList.remove('matrix-visible');
     }
   }
 
-  function restartMatrixTimer() {
-    if (matrixTimer) clearInterval(matrixTimer);
-    matrixTimer = setInterval(drawMatrix, matrixInterval);
+  /* ==========================
+     3D tilt for project cards
+  ========================== */
+  const canTilt = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (canTilt) {
+    document.addEventListener('mousemove', (e) => {
+      document.querySelectorAll('.project-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const inside =
+          e.clientX > rect.left && e.clientX < rect.right &&
+          e.clientY > rect.top && e.clientY < rect.bottom;
+
+        if (!inside) {
+          card.style.transform = '';
+          return;
+        }
+
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        card.style.transform =
+          `perspective(900px)
+           rotateY(${x * 10}deg)
+           rotateX(${-y * 10}deg)
+           translateY(-2px)`;
+      });
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.project-card').forEach(card => (card.style.transform = ''));
+    });
   }
 
-  restartMatrixTimer();
-
-  window.addEventListener('scroll', () => {
-    const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
-    const ratio = window.scrollY / maxScroll;
-
-    const newSpeed = Math.round(Math.max(22, 70 - ratio * 45));
-    if (newSpeed !== matrixInterval) {
-      matrixInterval = newSpeed;
-      restartMatrixTimer();
-    }
-  }, { passive: true });
-
-  // Matrix per-section visibility
-  const matrixObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-
-      if (entry.target.dataset.matrix === 'on') {
-        body.classList.add('matrix-visible');
-        body.classList.remove('matrix-hidden');
-      } else {
-        body.classList.add('matrix-hidden');
-        body.classList.remove('matrix-visible');
-      }
-    });
-  }, { threshold: 0.55 });
-
-  document.querySelectorAll('section').forEach(sec => matrixObserver.observe(sec));
-
-  // Mobile optimization (turn matrix off)
-  if (window.innerWidth < 768) {
-    if (matrixTimer) clearInterval(matrixTimer);
-    body.classList.add('matrix-hidden');
-    body.classList.remove('matrix-visible');
-  }
-
-  // ==========================
-  // 3D tilt project cards
-  // ==========================
-const canTilt = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-
-if (canTilt) {
-  document.addEventListener('mousemove', (e) => {
-    document.querySelectorAll('.project-card').forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const inside =
-        e.clientX > rect.left && e.clientX < rect.right &&
-        e.clientY > rect.top && e.clientY < rect.bottom;
-
-      if (!inside) {
-        card.style.transform = '';
-        return;
-      }
-
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-      card.style.transform =
-        `perspective(900px)
-         rotateY(${x * 10}deg)
-         rotateX(${-y * 10}deg)
-         translateY(-2px)`;
-    });
-  }, { passive: true });
-
-  // Reset when leaving page
-  document.addEventListener('mouseleave', () => {
-    document.querySelectorAll('.project-card').forEach(card => {
-      card.style.transform = '';
-    });
-  });
-}
-
-  // ==========================
-  // Projects loader (safe)
-  // ==========================
+  /* ==========================
+     Projects loader
+  ========================== */
   const container = document.getElementById('projectsContainer');
   const loadLocalBtn = document.getElementById('loadLocal');
   const loadGitHubBtn = document.getElementById('loadGitHub');
 
   function renderProjects(projects) {
-  if (!container) return;
-  container.innerHTML = '';
+    if (!container) return;
+    container.innerHTML = '';
 
-  projects.forEach(p => {
-    const a = document.createElement('a');
-    a.className = 'project-card fade-section visible';
-    a.href = p.link;
-    a.target = '_blank';
-    a.rel = 'noreferrer';
-    a.setAttribute('aria-label', `Open project: ${p.title}`);
+    projects.forEach(p => {
+      const a = document.createElement('a');
+      a.className = 'project-card';
+      a.href = p.link;
+      a.target = '_blank';
+      a.rel = 'noreferrer';
+      a.setAttribute('aria-label', `Open project: ${p.title}`);
 
-    const techHTML = Array.isArray(p.tech)
-      ? p.tech.map(t => `<span>${t}</span>`).join('')
-      : '';
+      const tech = Array.isArray(p.tech) ? p.tech : [];
+      const techHTML = tech.map(t => `<span>${t}</span>`).join('');
 
-    const imgHTML = p.image
-      ? `<img class="project-thumb" src="${p.image}" alt="${p.title} preview" loading="lazy" />`
-      : '';
+      const imgHTML = p.image
+        ? `<img class="project-thumb" src="${p.image}" alt="${p.title} preview" loading="lazy" />`
+        : '';
 
-    a.innerHTML = `
-      ${imgHTML}
-      <h3>${p.title}</h3>
-      <p>${p.description}</p>
-      <div class="project-tech">${techHTML}</div>
-      <div class="project-cta">Open Project →</div>
-    `;
+      a.innerHTML = `
+        ${imgHTML}
+        <h3>${p.title}</h3>
+        <p>${p.description || ''}</p>
+        <div class="project-tech">${techHTML}</div>
+        <div class="project-cta">Open Project →</div>
+      `;
 
-    container.appendChild(a);
-  });
+      container.appendChild(a);
+    });
+  }
 
-  staggerChildren?.('#projectsContainer', '.project-card');
-}
-
- async function loadLocal() {
-  const res = await fetch('data/projects.json');
-  const data = await res.json();
-  renderProjects(data);
-}
+  async function loadLocal() {
+    const res = await fetch('data/projects.json');
+    const data = await res.json();
+    renderProjects(data);
+  }
 
   async function loadGitHub() {
     const res = await fetch('https://api.github.com/users/HernandezCui/repos');
     const data = await res.json();
-    renderProjects(data.slice(0, 6).map(repo => ({
+
+    const mapped = data.slice(0, 6).map(repo => ({
       title: repo.name,
-      description: repo.description || 'No description',
-      link: repo.html_url
-    })));
+      description: repo.description || 'No description yet.',
+      link: repo.html_url,
+      tech: repo.language ? [repo.language] : [],
+      image: '' // GitHub API doesn't give preview images
+    }));
+
+    renderProjects(mapped);
   }
 
-  loadLocalBtn?.addEventListener('click', loadLocal);
-  loadGitHubBtn?.addEventListener('click', loadGitHub);
+  loadLocalBtn?.addEventListener('click', () => loadLocal().catch(() => {}));
+  loadGitHubBtn?.addEventListener('click', () => loadGitHub().catch(() => {}));
 
   // initial load
   loadLocal().catch(() => {});
 });
 
-// ==========================
-//      CURSOR TRAIL
-// ==========================
-const trailWrap = document.getElementById('cursorTrail');
-if (trailWrap) {
+/* ==========================
+   CURSOR TRAIL
+========================== */
+(() => {
+  const trailWrap = document.getElementById('cursorTrail');
+  if (!trailWrap) return;
+
   const dots = [];
   const DOTS = 18;
 
@@ -342,5 +320,7 @@ if (trailWrap) {
 
     requestAnimationFrame(animateTrail);
   }
+
   animateTrail();
-}
+})();
+

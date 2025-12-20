@@ -1,16 +1,44 @@
 [
   {
     "title": "Work Day Scheduler",
-    "description": "A Calendar app for scheduling your work day.",
+    "description": "A calendar-based application that allows users to schedule tasks throughout the work day with persistent storage.",
     "link": "https://hernandezcui.github.io/Calendar-Application/",
     "tech": ["HTML", "CSS", "JavaScript"],
-    "image": "images/projects/portfolio.png"
+    "image": "images/projects/workday.png"
   },
   {
-    "title": "CRUD App",
-    "description": "Full CRUD web app with a MySQL database and authentication.",
-    "link": "https://github.com/yourrepo",
-    "tech": ["Java", "JSP", "MySQL"],
-    "image": "images/projects/crud.png"
+    "title": "Password Generator",
+    "description": "A secure password generator that creates randomized passwords based on user-selected criteria.",
+    "link": "https://hernandezcui.github.io/Password-Generator/",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "image": "images/projects/password.png"
+  },
+  {
+    "title": "Weather Dashboard",
+    "description": "A weather dashboard that fetches real-time weather data and forecasts using a third-party API.",
+    "link": "https://hernandezcui.github.io/Weather-Dashboard/",
+    "tech": ["JavaScript", "API", "Bootstrap"],
+    "image": "images/projects/weather.png"
+  },
+  {
+    "title": "Coding Quiz Challenge",
+    "description": "A timed coding quiz application that stores high scores and challenges users with JavaScript questions.",
+    "link": "https://hernandezcui.github.io/Code-Quiz/",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "image": "images/projects/quiz.png"
+  },
+  {
+    "title": "Note Taker",
+    "description": "A full-stack note-taking application that allows users to create, save, and delete notes.",
+    "link": "https://github.com/HernandezCui/Note-Taker",
+    "tech": ["Node.js", "Express", "JavaScript"],
+    "image": "images/projects/notetaker.png"
+  },
+  {
+    "title": "Employee Tracker",
+    "description": "A command-line application for managing a company’s employee database using MySQL.",
+    "link": "https://github.com/HernandezCui/Employee-Tracker",
+    "tech": ["Node.js", "MySQL", "Inquirer"],
+    "image": "images/projects/employee.png"
   }
 ]
