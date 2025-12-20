@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
+
 <body>
   <!-- Boot Screen -->
   <div id="bootScreen" aria-hidden="true">
@@ -25,52 +26,48 @@ Loading portfolio<span class="blink">_</span>
   <div id="cursorTrail" aria-hidden="true"></div>
 
   <!-- NAV -->
- <nav class="nav">
-  <span class="logo logo-gradient">Cuitlahuac.</span>
+  <nav class="nav">
+    <span class="logo logo-gradient" aria-label="Cuitlahuac home">Cuitlahuac.</span>
 
-  <div class="nav-right">
-    <a href="#home" class="nav-link">Home</a>
-    <a href="#about" class="nav-link">About</a>
-    <a href="#skills" class="nav-link">Skills</a>
-    <a href="#projects" class="nav-link">Projects</a>
-    <a href="#contact" class="nav-link">Contact</a>
+    <div class="nav-right">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#contact" class="nav-link">Contact</a>
 
-    <div class="nav-avatar" aria-hidden="true">
-      <div class="avatar-face">
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="smile"></div>
+      <div class="nav-avatar" aria-hidden="true">
+        <div class="avatar-face">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="smile"></div>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
   <!-- HOME -->
   <section id="home" class="section hero" data-matrix="on">
-  <div class="hero-grid">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <h1 class="home-elem">Hi, I'm</h1>
+        <h2 class="name home-elem">Cuitlahuac</h2>
+        <h3 class="typing home-elem"></h3>
+        <p class="profession home-elem">Software Developer | Problem Solver</p>
 
-    <!-- Left -->
-    <div class="hero-left">
-      <h1 class="home-elem">Hi, I'm</h1>
-      <h2 class="name home-elem">Cuitlahuac</h2>
-      <h3 class="typing home-elem"></h3>
-      <p class="profession home-elem">Software Developer | Problem Solver</p>
+        <div class="home-buttons home-elem">
+          <a href="#contact" class="btn btn-sweep">Get in touch</a>
+          <a href="#projects" class="btn btn-secondary btn-sweep">&lt;/&gt; View projects</a>
+        </div>
+      </div>
 
-      <div class="home-buttons home-elem">
-        <a href="#contact" class="btn btn-sweep">Get in touch</a>
-        <a href="#projects" class="btn btn-secondary btn-sweep">&lt;/&gt; View projects</a>
+      <div class="hero-right home-elem">
+        <img class="hero-image" src="images/code.webp" alt="Code preview" />
       </div>
     </div>
+  </section>
 
-    <!-- Right -->
-    <div class="hero-right home-elem">
-      <img class="hero-image" src="images/code.webp" alt="Code preview" />
-    </div>
-
-  </div>
-</section>
-
- <!-- ABOUT -->
+  <!-- ABOUT -->
 <section id="about" class="section fade-section section-dark">
   <div class="container about-wrap">
 
@@ -90,6 +87,8 @@ Loading portfolio<span class="blink">_</span>
           class="bitmoji-img"
         />
       </div>
+
+      <div class="about-divider" aria-hidden="true"></div>
 
       <!-- Text -->
       <div class="about-text">
@@ -112,7 +111,9 @@ Loading portfolio<span class="blink">_</span>
   <!-- SKILLS -->
   <section id="skills" class="section fade-section" data-matrix="on">
     <div class="container">
-      <h2>Skills</h2>
+        <h2 class="section-title skills-title">
+            <span class="num">02.</span> Skills &amp; Technology
+        </h2>
       <div class="skills-grid">
         <span>Java</span><span>JavaScript</span><span>HTML</span><span>CSS</span>
         <span>MySQL</span><span>Git</span><span>React</span><span>Linux</span>
@@ -124,6 +125,7 @@ Loading portfolio<span class="blink">_</span>
   <section id="projects" class="section fade-section section-dark">
     <div class="container">
       <h2>Projects</h2>
+
       <div class="project-controls">
         <button id="loadLocal" type="button">Local Projects</button>
         <button id="loadGitHub" type="button">GitHub Projects</button>
@@ -171,3 +173,4 @@ Loading portfolio<span class="blink">_</span>
   <script src="js/script.js" defer></script>
 </body>
 </html>
+
