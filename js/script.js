@@ -141,7 +141,8 @@ function initMatrix() {
       const x = i * fontSize;
       const y = drops[i] * fontSize;
 
-      ctx.fillStyle = '#22c55e';
+      // blue base
+      ctx.fillStyle = '#38bdf8';
 
       if (mouseActive) {
         const dx = x - mouseX;
@@ -149,7 +150,7 @@ function initMatrix() {
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < radius) {
-          ctx.fillStyle = bursting ? '#38bdf8' : '#22c55e';
+          ctx.fillStyle = bursting ? '#7dd3fc' : '#38bdf8';
           drops[i] = Math.max(0, drops[i] - (bursting ? 6 : 2));
         }
       }
@@ -212,31 +213,46 @@ function renderProjects(projects) {
   container.innerHTML = '';
 
   projects.forEach(p => {
+    const href = p.github || p.link || '#';
+
     const a = document.createElement('a');
     a.className = 'project-card';
-    a.href = p.link || '#';
+    a.href = href;
     a.target = '_blank';
     a.rel = 'noreferrer';
-    a.setAttribute('aria-label', `Open project: ${p.title || 'Project'}`);
+    a.setAttribute('aria-label', `Open GitHub project: ${p.title || 'Project'}`);
 
     const tech = Array.isArray(p.tech) ? p.tech : [];
-    const techHTML = tech.map(t => `<span>${t}</span>`).join('');
+    const techHTML = tech.map(t => `<span class="tech-chip">${t}</span>`).join('');
 
-    const imgHTML = p.image
+    const img = p.image
       ? `<img class="project-thumb" src="${p.image}" alt="${p.title || 'Project'} preview" loading="lazy" />`
-      : '';
+      : `<div class="project-thumb" style="display:flex;align-items:center;justify-content:center;color:rgba(229,231,235,.65);background:rgba(2,6,23,.55);">
+          No preview image
+        </div>`;
 
     a.innerHTML = `
-      ${imgHTML}
-      <h3>${p.title || 'Untitled Project'}</h3>
-      <p>${p.description || ''}</p>
-      <div class="project-tech">${techHTML}</div>
-      <div class="project-cta">Open Project →</div>
+      ${img}
+      <div class="project-body">
+        <h3 class="project-name">${p.title || 'Untitled Project'}</h3>
+        <p class="project-desc">${p.description || ''}</p>
+
+        <div class="project-meta">
+          <span class="project-label">Languages used:</span>
+          <div class="project-tech">${techHTML}</div>
+        </div>
+
+        <div class="project-cta">
+          <span>View on GitHub</span>
+          <i class="fa-brands fa-github"></i>
+        </div>
+      </div>
     `;
 
     container.appendChild(a);
   });
 }
+
 
 async function loadLocalProjects() {
   const res = await fetch('data/projects.json');
@@ -245,66 +261,39 @@ async function loadLocalProjects() {
   renderProjects(data);
 }
 
-async function loadGitHubProjects() {
-  const res = await fetch('https://api.github.com/users/HernandezCui/repos');
-  if (!res.ok) throw new Error('Could not load GitHub repos');
-  const data = await res.json();
-
-  const mapped = data.slice(0, 6).map(repo => ({
-    title: repo.name,
-    description: repo.description || 'No description yet.',
-    link: repo.html_url,
-    tech: repo.language ? [repo.language] : [],
-    image: '' // GitHub API doesn't provide preview images
-  }));
-
-  renderProjects(mapped);
-}
-
 function initProjects() {
   loadLocalProjects().catch(() => {});
 }
 
 // ==========================
-// 3D tilt
+// 3D tilt (Projects + Skills)
 // ==========================
 function initProjectTilt() {
   if (!isFinePointer()) return;
 
-  document.addEventListener('mousemove', (e) => {
-    $all('.project-card').forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const inside =
-        e.clientX > rect.left && e.clientX < rect.right &&
-        e.clientY > rect.top && e.clientY < rect.bottom;
-
-      if (!inside) {
-        card.style.transform = '';
-        return;
-      }
-
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+  $all('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
 
       card.style.transform =
-        `perspective(900px)
-         rotateY(${x * 10}deg)
-         rotateX(${-y * 10}deg)
-         translateY(-2px)`;
+        `perspective(1200px)
+         rotateY(${x * 12}deg)
+         rotateX(${-y * 12}deg)
+         translateY(-6px)`;
     });
-  }, { passive: true });
 
-  document.addEventListener('mouseleave', () => {
-    $all('.project-card').forEach(card => (card.style.transform = ''));
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
 }
-/* ==========================
-   3D tilt for SKILLS cards
-========================== */
-const canTiltSkills = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-if (canTiltSkills) {
-  document.querySelectorAll('.skills-card').forEach(card => {
+function initSkillsTilt() {
+  if (!isFinePointer()) return;
+
+  $all('.skills-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const r = card.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
@@ -370,7 +359,7 @@ function initCursorTrail() {
 }
 
 // ==========================
-// About: Bitmoji mouse parallax
+// About: Bitmoji parallax
 // ==========================
 function initAboutParallax() {
   if (!isFinePointer()) return;
@@ -420,9 +409,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initMatrix();
   initProjects();
+
   initProjectTilt();
+  initSkillsTilt();
 
   initCursorTrail();
   initAboutParallax();
 });
-

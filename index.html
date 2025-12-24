@@ -68,125 +68,100 @@ Loading portfolio<span class="blink">_</span>
   </section>
 
   <!-- ABOUT -->
-<section id="about" class="section fade-section section-dark">
-  <div class="container about-wrap">
+  <section id="about" class="section fade-section section-dark">
+    <div class="container about-wrap">
+      <h2 class="section-title">
+        <span class="num">01.</span> About me
+      </h2>
 
-    <!-- Title -->
-    <h2 class="section-title">
-      <span class="num">01.</span> About me
-    </h2>
+      <div class="about-grid">
+        <div class="about-avatar">
+          <img src="images/bitmoji.png" alt="Cuitlahuac Bitmoji" class="bitmoji-img" />
+        </div>
 
-    <!-- Content -->
-    <div class="about-grid">
+        <div class="about-divider" aria-hidden="true"></div>
 
-      <!-- Bitmoji -->
-      <div class="about-avatar">
-        <img
-          src="images/bitmoji.png"
-          alt="Cuitlahuac Bitmoji"
-          class="bitmoji-img"
-        />
+        <div class="about-text">
+          <p>
+            I’m a recent Software Developer graduate who enjoys building modern,
+            clean, and interactive web experiences. I love solving problems,
+            learning new technologies, and turning ideas into polished projects.
+          </p>
+
+          <p class="about-sub">
+            My interests include full-stack development, cybersecurity-inspired UI,
+            automation, and performance-focused design.
+          </p>
+        </div>
       </div>
-
-      <div class="about-divider" aria-hidden="true"></div>
-
-      <!-- Text -->
-      <div class="about-text">
-        <p>
-          I’m a recent Software Developer graduate who enjoys building modern,
-          clean, and interactive web experiences. I love solving problems,
-          learning new technologies, and turning ideas into polished projects.
-        </p>
-
-        <p class="about-sub">
-          My interests include full-stack development, cybersecurity-inspired UI,
-          automation, and performance-focused design.
-        </p>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- SKILLS -->
   <section id="skills" class="section fade-section section-dark skills-section" data-matrix="on">
-  <div class="container">
+    <div class="container">
+      <h2 class="section-title skills-title">
+        <span class="num">02.</span> Skills &amp; Technology
+      </h2>
 
-    <h2 class="section-title skills-title">
-      <span class="num">02.</span> Skills &amp; Technology
-    </h2>
+      <div class="skills-cards">
+        <div class="skills-card">
+          <h3 class="skills-card-title">
+            <span class="skills-icon">&lt;/&gt;</span>
+            Languages
+          </h3>
+          <div class="skills-chips">
+            <span class="chip">Java</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">TypeScript</span>
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Python</span>
+          </div>
+        </div>
 
-    <div class="skills-cards">
+        <div class="skills-card">
+          <h3 class="skills-card-title">
+            <span class="skills-icon">🛠</span>
+            Tools &amp; Frameworks
+          </h3>
+          <div class="skills-chips">
+            <span class="chip">Git</span>
+            <span class="chip">React</span>
+            <span class="chip">Node.js</span>
+            <span class="chip">Express</span>
+            <span class="chip">MySQL</span>
+          </div>
+        </div>
 
-      <!-- Languages -->
-      <div class="skills-card">
-        <h3 class="skills-card-title">
-          <span class="skills-icon">&lt;/&gt;</span>
-          Languages
-        </h3>
-
-        <div class="skills-chips">
-          <span class="chip">Java</span>
-          <span class="chip">JavaScript</span>
-          <span class="chip">TypeScript</span>
-          <span class="chip">HTML</span>
-          <span class="chip">CSS</span>
-          <span class="chip">SQL</span>
-          <span class="chip">Python</span>
+        <div class="skills-card">
+          <h3 class="skills-card-title">
+            <span class="skills-icon">🚀</span>
+            Performance
+          </h3>
+          <div class="skills-chips">
+            <span class="chip">Optimization</span>
+            <span class="chip">Profiling</span>
+            <span class="chip">Caching</span>
+            <span class="chip">Accessibility</span>
+            <span class="chip">Responsive UI</span>
+          </div>
         </div>
       </div>
-
-      <!-- Tools & Frameworks -->
-      <div class="skills-card">
-        <h3 class="skills-card-title">
-          <span class="skills-icon">🛠</span>
-          Tools &amp; Frameworks
-        </h3>
-
-        <div class="skills-chips">
-          <span class="chip">Git</span>
-          <span class="chip">React</span>
-          <span class="chip">Node.js</span>
-          <span class="chip">Express</span>
-          <span class="chip">MySQL</span>
-        </div>
-      </div>
-
-      <!-- Performance -->
-      <div class="skills-card">
-        <h3 class="skills-card-title">
-          <span class="skills-icon">🚀</span>
-          Performance
-        </h3>
-
-        <div class="skills-chips">
-          <span class="chip">Optimization</span>
-          <span class="chip">Profiling</span>
-          <span class="chip">Caching</span>
-          <span class="chip">Accessibility</span>
-          <span class="chip">Responsive UI</span>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROJECTS -->
-<section id="projects" class="section fade-section section-dark projects-section">
-  <div class="container">
-    <h2 class="projects-title">
-      <span class="num">03.</span> Featured Projects
-    </h2>
+  <!-- PROJECTS -->
+  <section id="projects" class="section fade-section section-dark projects-section">
+    <div class="container">
+      <h2 class="section-title projects-title">
+        <span class="num">03.</span> Featured Projects
+      </h2>
 
-    <div class="project-controls">
-      <button id="loadLocal" type="button">Local Projects</button>
-      <button id="loadGitHub" type="button">GitHub Projects</button>
+      <div id="projectsContainer" class="projects-grid"></div>
     </div>
-
-    <div id="projectsContainer"></div>
-  </div>
-</section>
+  </section>
 
   <!-- CONTACT -->
   <section id="contact" class="section fade-section contact-section" data-matrix="on">
@@ -226,4 +201,3 @@ Loading portfolio<span class="blink">_</span>
   <script src="js/script.js" defer></script>
 </body>
 </html>
-
