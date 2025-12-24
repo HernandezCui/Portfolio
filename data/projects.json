@@ -1,10 +1,50 @@
 [
   {
     "title": "Work Day Scheduler",
-    "description": "A calendar-based application that allows users to schedule tasks throughout the work day with persistent storage.",
+    "description": "A calendar-based scheduler that lets users plan their work day with persistent storage.",
     "github": "https://github.com/HernandezCui/Calendar-Application",
     "link": "https://hernandezcui.github.io/Calendar-Application/",
     "tech": ["HTML", "CSS", "JavaScript"],
     "image": "images/Workday.png"
+  },
+  {
+    "title": "Weather Dashboard",
+    "description": "A weather dashboard that fetches real-time forecast data and displays it in a clean UI.",
+    "github": "https://github.com/HernandezCui/Weather-forecast",
+    "link": "",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "image": "images/Weather-forecast.png"
+  },
+  {
+    "title": "Moffat Bay (Group Project)",
+    "description": "Capstone project for a software development course. Built with Django and a MySQL-backed workflow.",
+    "github": "https://github.com/jessmonnier/moffatbay",
+    "link": "",
+    "tech": ["Python", "Django", "HTML", "CSS", "MySQL"],
+    "image": "images/moffatbay.png"
+  },
+  {
+ "title": "Video Game Vixens",
+    "description": "Project website/app for Video Game Vixens.",
+    "github": "https://github.com/HernandezCui/Video-Game-Vixens",
+    "link": "",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "image": "images/vixens.png"
+  },
+  {
+    "title": "README Generator",
+    "description": "A CLI tool that generates a professional README based on user prompts.",
+    "github": "https://github.com/HernandezCui/README-Generator",
+    "link": "",
+    "tech": ["JavaScript", "Node.js", "Inquirer"],
+    "image": "images/ReadMe.png"
+  },
+  {
+    "title": "E-commerce Back End",
+    "description": "Back-end API for an e-commerce site using Express + Sequelize + MySQL.",
+    "github": "https://github.com/HernandezCui/E-commerce-Back-End",
+    "link": "",
+    "tech": ["Node.js", "Express", "Sequelize", "MySQL"],
+    "image": "images/backend.png"
   }
 ]
