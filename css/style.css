@@ -529,16 +529,7 @@ section{ scroll-margin-top: calc(var(--navH) + 16px); }
 /* ==========================
    PROJECTS
 ========================== */
-.project-controls{ margin: 16px 0 22px; }
-.project-controls button{
-  padding:10px 14px;
-  border-radius:10px;
-  border: 1px solid rgba(56,189,248,.25);
-  background: rgba(2,6,23,.6);
-  color: var(--text);
-  cursor:pointer;
-}
-.project-controls button:hover{ border-color: rgba(56,189,248,.6); }
+
 
 #projectsContainer{
   display:grid;

@@ -262,12 +262,6 @@ async function loadGitHubProjects() {
 }
 
 function initProjects() {
-  const loadLocalBtn = document.getElementById('loadLocal');
-  const loadGitHubBtn = document.getElementById('loadGitHub');
-
-  loadLocalBtn?.addEventListener('click', () => loadLocalProjects().catch(() => {}));
-  loadGitHubBtn?.addEventListener('click', () => loadGitHubProjects().catch(() => {}));
-
   loadLocalProjects().catch(() => {});
 }
 
