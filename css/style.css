@@ -763,6 +763,15 @@ section{ scroll-margin-top: calc(var(--navH) + 16px); }
   margin-bottom: 48px;
 }
 
+#contact .section-number.center{
+  color: #ffffff;           /* Get in touch = white */
+}
+
+#contact .section-number.center::first-letter,
+#contact .section-number.center span{
+  color: var(--accent);     /* 04. = blue */
+}
+
 #formStatus{ margin-top: 10px; font-size:.9rem; }
 
 /* ==========================
@@ -783,6 +792,47 @@ body::after{
     transparent 4px
   );
   z-index:0;
+}
+
+/* ==========================
+   Footer socials
+========================== */
+
+.footer-content{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-socials a{
+  font-size: 1.6rem;
+  margin-left: 16px;
+  color: var(--accent);
+  transition: transform .2s ease, color .2s ease;
+}
+
+.footer-socials a:hover{
+  transform: translateY(-3px);
+  color: #7dd3fc;
+}
+
+/* ==========================
+   Squared project cards
+========================== */
+
+.project-card{
+  border-radius: 12px;
+}
+
+.project-thumb{
+  border-radius: 12px 12px 0 0;
+}
+
+.project-body{
+  border-radius: 0 0 12px 12px;
 }
 
 /* ==========================
@@ -882,7 +932,7 @@ body.loaded #bootScreen{
 }
 
 /* ==========================
-   Sticky Footer
+   Sticky footer bottom-left content
 ========================== */
 
 .footer{
@@ -890,18 +940,52 @@ body.loaded #bootScreen{
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(2, 6, 23, 0.95);
-  border-top: 1px solid rgba(56,189,248,.25);
-  backdrop-filter: blur(6px);
+  height: 64px;
   z-index: 999;
-  padding: 12px 0;
+  background: rgba(2,6,23,.95);
+  border-top: 1px solid rgba(56,189,248,.25);
+  backdrop-filter: blur(8px);
 }
 
-/* Prevent footer from covering content */
+/* Push footer content to bottom-left */
+.footer-content{
+  position: absolute;
+  left: 20px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Text */
+.footer p{
+  margin: 0;
+  font-size: .85rem;
+  opacity: .85;
+  white-space: nowrap;
+}
+
+/* Social icons */
+.footer-socials{
+  display: flex;
+  gap: 14px;
+}
+
+.footer-socials a{
+  font-size: 1.5rem;
+  color: var(--accent);
+  transition: transform .25s ease, color .25s ease;
+}
+
+.footer-socials a:hover{
+  transform: translateY(-2px);
+  color: #7dd3fc;
+}
+
+/* Prevent footer overlapping content */
 body{
-  padding-bottom: 60px;
+  padding-bottom: 70px;
 }
-
 /* ==========================
    RESPONSIVE
 ========================== */
