@@ -680,6 +680,18 @@ section{ scroll-margin-top: calc(var(--navH) + 16px); }
   opacity: .95;
 }
 
+#projects.section{
+  min-height: auto;          /* stop forcing one-screen height */
+  align-items: flex-start;   /* stop vertical centering */
+  padding-top: 64px;         /* breathing room under the title */
+  padding-bottom: 72px;
+}
+
+/* Give the grid a clean start under the title */
+#projects .projects-grid{
+  margin-top: 26px;
+}
+
 /* ==========================
    CONTACT
 ========================== */
@@ -742,6 +754,13 @@ section{ scroll-margin-top: calc(var(--navH) + 16px); }
   background: var(--accent);
   font-weight:800;
   cursor:pointer;
+}
+
+#contact .section-number.center{
+  color: #ffffff;           /* make text white */
+  text-align: center;
+  width: 100%;
+  margin-bottom: 48px;
 }
 
 #formStatus{ margin-top: 10px; font-size:.9rem; }
@@ -811,6 +830,76 @@ body.loaded #bootScreen{
   box-shadow: 0 0 10px rgba(56,189,248,.55);
   transform: translate(-50%, -50%);
   opacity: .9;
+}
+
+/* ==========================
+   PROJECT CARDS – compact size
+========================== */
+
+.project-thumb{
+  height: 140px;   /* was ~170px */
+}
+
+.project-body{
+  padding: 14px;  /* tighter spacing */
+}
+
+.project-name{
+  font-size: 1.1rem;
+}
+
+.project-desc{
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.tech-chip{
+  font-size: 0.8rem;
+  padding: 5px 8px;
+}
+
+.projects-grid{
+  gap: 18px;   /* tighter grid spacing */
+}
+
+/* ==========================
+   Unified section titles
+========================== */
+
+.section-title,
+.projects-title,
+.section-number.center{
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 38px;
+  letter-spacing: 0.5px;
+}
+
+.section-title .num,
+.projects-title .num{
+  color: var(--accent);
+}
+
+/* ==========================
+   Sticky Footer
+========================== */
+
+.footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(2, 6, 23, 0.95);
+  border-top: 1px solid rgba(56,189,248,.25);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  padding: 12px 0;
+}
+
+/* Prevent footer from covering content */
+body{
+  padding-bottom: 60px;
 }
 
 /* ==========================
