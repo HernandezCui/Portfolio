@@ -45,6 +45,6 @@
     "github": "https://github.com/HernandezCui/E-commerce-Back-End",
     "link": "",
     "tech": ["Node.js", "Express", "Sequelize", "MySQL"],
-    "image": "images/backend.png"
+    "image": "images/Backend.png"
   }
 ]

@@ -262,7 +262,9 @@ async function loadLocalProjects() {
 }
 
 function initProjects() {
-  loadLocalProjects().catch(() => {});
+  loadLocalProjects()
+    .then(() => initProjectTilt()) // attach tilt after cards exist
+    .catch((err) => console.error(err));
 }
 
 // ==========================
